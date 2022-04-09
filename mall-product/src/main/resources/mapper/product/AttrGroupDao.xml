@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhichao.mall.product.dao.AttrGroupDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.zhichao.mall.product.entity.AttrGroupEntity" id="attrGroupMap">
+        <result property="attrGroupId" column="attr_group_id"/>
+        <result property="attrGroupName" column="attr_group_name"/>
+        <result property="sort" column="sort"/>
+        <result property="descript" column="descript"/>
+        <result property="icon" column="icon"/>
+        <result property="catelogId" column="catelog_id"/>
+    </resultMap>
+
+    <resultMap id="spuItemSaleAttrMap" type="com.zhichao.mall.product.vo.SpuItemSaleAttrVo">
+        <result property="groupName" column="attr_group_name"/>
+        <collection property="spuBaseAttrVos"
+                    ofType="com.zhichao.mall.product.vo.SpuBaseAttrVo">
+            <result property="attrName" column="attr_name"/>
+            <result property="attrValue" column="attr_value"/>
+        </collection>
+    </resultMap>
+    <select id="selectSpuItemSaleAttr" resultMap="spuItemSaleAttrMap">
+        SELECT pattrgroup.attr_group_name attr_group_name,
+               pattrval.attr_name         attr_name,
+               pattrval.attr_value        attr_value
+        FROM `pms_attr_group` pattrgroup
+                 LEFT JOIN pms_attr_attrgroup_relation prela
+                           ON prela.attr_group_id = pattrgroup.attr_group_id
+                 LEFT JOIN pms_product_attr_value pattrval
+                           ON pattrval.attr_id = prela.attr_id
+        where pattrgroup.catelog_id = #{catalogId}
+          AND pattrval.spu_id = #{spuId}
+    </select>
+
+
+</mapper>

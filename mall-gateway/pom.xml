@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.zhichao.mall</groupId>
+    <artifactId>mall-gateway</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <name>mall-gateway</name>
+    <description>网关</description>
+
+    <parent>
+        <groupId>com.zhichao.mall</groupId>
+        <artifactId>mymall</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+        <!-- mall通用模块 -->
+        <dependency>
+            <groupId>com.zhichao.mall</groupId>
+            <artifactId>mall-common</artifactId>
+        </dependency>
+        <!-- spring-cloud-starter-gateway依赖与mvc是不兼容的,
+              如果要引用spring-boot-starter-web需要把mvc排除
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-webmvc</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

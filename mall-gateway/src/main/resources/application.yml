@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: mall-gateway
+  cloud:
+    nacos:
+      discovery:
+        #Nacos Server address
+        server-addr: 8.136.7.205:8848
+    gateway:
+      routes:
+        #路由到商品模块
+        - id: product_route
+          uri: lb://mall-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/?(?<segment>.*), /$\{segment}
+        #会员系统模块
+        - id: member_route
+          uri: lb://mall-member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api/?(?<segment>.*), /$\{segment}
+        #库存系统模块
+        - id: ware_route
+          uri: lb://mall-ware
+          predicates:
+            - Path=/api/ware/**
+          filters:
+            - RewritePath=/api/?(?<segment>.*), /$\{segment}
+        #路由到优惠模块
+        - id: mall_coupon
+          uri: lb://mall-coupon
+          predicates:
+            - Path=/api/coupon/**
+          filters:
+            - RewritePath=/api/?(?<segment>.*), /$\{segment}
+        #路由到第三方模块
+        - id: thirdparty_route
+          uri: lb://mall-third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/?(?<segment>.*), /$\{segment}
+        #路由到管理模块
+        - id: admin_route
+          uri: lb://mall-admin
+          predicates:
+            #前端项目默认api
+            - Path=/api/**
+          filters:
+            #路径重写
+            - RewritePath=/api/?(?<segment>.*), /mall-admin/$\{segment}
+        #路由到首页
+        #nginx代理给网关的时候，会丢失host的信息
+        - id: host_home_page
+          uri: lb://mall-product
+          predicates:
+            - Host=mymall.com
+        #路由到检索首页
+        - id: host_search_page
+          uri: lb://mall-search
+          predicates:
+            - Host=search.mymall.com
+        #路由到登录页
+        - id: host_auth_page
+          uri: lb://mall-auth-server
+          predicates:
+            - Host=auth.mymall.com
+server:
+  port: 88

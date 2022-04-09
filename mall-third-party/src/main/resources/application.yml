@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: mall-third-party
+  #注册中心
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 8.136.7.205:8848
+
+#阿里巴巴相关配置
+alibaba:
+  cloud:
+    access-key: LTAI5tE7A65QNEotM1xZTaYX
+    secret-key: E72jZzpilc3oyyVIaM5ReCurEBhMLa
+    oss:
+      endpoint: oss-cn-beijing.aliyuncs.com
+      bucket: zhichaomall
+
+server:
+  port: 89

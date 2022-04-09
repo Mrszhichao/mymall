@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: mall-coupon
+  datasource:
+    #MySQL配置
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://rm-2ze7pi8xlmr7ic1amqo.mysql.rds.aliyuncs.com/mall_sms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: Czc193590
+  cloud:
+    nacos:
+      discovery:
+        #Nacos Server address
+        server-addr: 8.136.7.205:8848
+
+mybatis-plus:
+  mapper-location: classpath:mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+
+server:
+  port: 7000

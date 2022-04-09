@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: mall-product
+  datasource:
+    #MySQL配置
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://rm-2ze7pi8xlmr7ic1amqo.mysql.rds.aliyuncs.com/mall_pms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: Czc193590
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 8.136.7.205:8848
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  thymeleaf:
+    cache: false
+  redis:
+    host: r-2zevhltnqzp36nnxcvpd.redis.rds.aliyuncs.com
+    port: 6379
+    password: Czc193590
+  #缓存配置
+  cache:
+    type: redis
+    redis:
+      #指定存活时间，以毫秒为单位
+      time-to-live: 360000
+
+mybatis-plus:
+  mapper-location: classpath:mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+    #逻辑已删除值(默认为 1)
+    logic-delete-value: 1
+    # 逻辑未删除值(默认为 0)
+    logic-not-delete-value: 0
+server:
+  port: 10000
+#线程池配置
+mall:
+  thread:
+    core-size: 20
+    max-size: 200
+    keep-alive-time: 10
